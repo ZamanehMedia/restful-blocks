@@ -55,7 +55,7 @@ class RESTEndpoints {
         $count_query = new \WP_Query();
         $count_query->query( array() );
         $total_posts  = $count_query->found_posts;
-        $total_pages = ceil( $total_posts / $posts_per_page );
+        $total_pages = ceil( $total_posts / count( $posts ) );
 
         $result = array();
         foreach($posts as $post) {
