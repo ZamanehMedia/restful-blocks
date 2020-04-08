@@ -56,7 +56,7 @@ class RESTEndpoints {
         $params = $request->get_params();
         $posts_per_page = $params['numberposts'];
         if (!isset($posts_per_page)) {
-			      $posts_per_page = 3000;
+	    $posts_per_page = 3000;
             $params['numberposts'] = $posts_per_page;
         }
 
