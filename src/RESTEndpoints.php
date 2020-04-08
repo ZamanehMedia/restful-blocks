@@ -54,12 +54,18 @@ class RESTEndpoints {
     public static function get_all_post_block_meta($request)
     {
         $params = $request->get_params();
+        $posts_per_page = $params['numberposts'];
+        if (!isset($posts_per_page)) {
+			      $posts_per_page = 3000;
+            $params['numberposts'] = $posts_per_page;
+        }
+
         $posts = \get_posts($params);
 
         $count_query = new \WP_Query();
         $count_query->query( array() );
         $total_posts  = $count_query->found_posts;
-        $total_pages = ceil( $total_posts / count( $posts ) );
+        $total_pages = ceil( $total_posts / $posts_per_page );
 
         $result = array();
         foreach($posts as $post) {
