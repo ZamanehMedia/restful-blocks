@@ -42,6 +42,9 @@ class RESTEndpoints {
             }
         }
 
+		    $post_featured_image = \get_the_post_thumbnail_url($request['post_id']);
+		    $item_metadata['featured_image'] = $post_featured_image;
+
         $block_data = Data::get_block_data($post->post_content);
         $block_metadata = Metadata::get_block_metadata($block_data);
         $item_metadata['blocks'] = $block_metadata;
@@ -76,6 +79,9 @@ class RESTEndpoints {
                     $item_metadata[$meta_key] = $meta_value;
                 }
             }
+
+            $post_featured_image = \get_the_post_thumbnail_url($post);
+            $item_metadata['featured_image'] = $post_featured_image;
 
             $block_data = Data::get_block_data($post->post_content);
             $block_metadata = Metadata::get_block_metadata($block_data);
