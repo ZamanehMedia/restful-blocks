@@ -42,8 +42,33 @@ class RESTEndpoints {
             }
         }
 
-		    $post_featured_image = \get_the_post_thumbnail_url($request['post_id']);
-		    $item_metadata['featured_image'] = $post_featured_image;
+        $featured_image_id = \get_post_thumbnail_id($post);
+        $featured_image_sizes = array();
+
+        if ($featured_image_id) {
+            $small_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium');
+            $small_image = array();
+            $small_image['src'] = $small_image_instance[0];
+            $small_image['width'] = $small_image_instance[1];
+            $small_image['height'] = $small_image_instance[2];
+            $featured_image_sizes['small'] = $small_image;
+
+            $medium_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium_large');
+            $medium_image = array();
+            $medium_image['src'] = $medium_image_instance[0];
+            $medium_image['width'] = $medium_image_instance[1];
+            $medium_image['height'] = $medium_image_instance[2];
+            $featured_image_sizes['medium'] = $medium_image;
+
+            $large_image_instance = \wp_get_attachment_image_src($featured_image_id, 'full');
+            $large_image = array();
+            $large_image['src'] = $large_image_instance[0];
+            $large_image['width'] = $large_image_instance[1];
+            $large_image['height'] = $large_image_instance[2];
+            $featured_image_sizes['large'] = $large_image;
+        }
+
+        $item_metadata['featured_image'] = $featured_image_sizes;
 
         $block_data = Data::get_block_data($post->post_content);
         $block_metadata = Metadata::get_block_metadata($block_data);
@@ -80,8 +105,33 @@ class RESTEndpoints {
                 }
             }
 
-            $post_featured_image = \get_the_post_thumbnail_url($post);
-            $item_metadata['featured_image'] = $post_featured_image;
+            $featured_image_id = \get_post_thumbnail_id($post);
+            $featured_image_sizes = array();
+
+            if ($featured_image_id) {
+                $small_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium');
+                $small_image = array();
+                $small_image['src'] = $small_image_instance[0];
+                $small_image['width'] = $small_image_instance[1];
+                $small_image['height'] = $small_image_instance[2];
+                $featured_image_sizes['small'] = $small_image;
+
+                $medium_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium_large');
+                $medium_image = array();
+                $medium_image['src'] = $medium_image_instance[0];
+                $medium_image['width'] = $medium_image_instance[1];
+                $medium_image['height'] = $medium_image_instance[2];
+                $featured_image_sizes['medium'] = $medium_image;
+
+                $large_image_instance = \wp_get_attachment_image_src($featured_image_id, 'full');
+                $large_image = array();
+                $large_image['src'] = $large_image_instance[0];
+                $large_image['width'] = $large_image_instance[1];
+                $large_image['height'] = $large_image_instance[2];
+                $featured_image_sizes['large'] = $large_image;
+            }
+
+            $item_metadata['featured_image'] = $featured_image_sizes;
 
             $block_data = Data::get_block_data($post->post_content);
             $block_metadata = Metadata::get_block_metadata($block_data);
