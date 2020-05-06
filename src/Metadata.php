@@ -15,6 +15,7 @@ class Metadata {
             $blockMeta = null;
             switch ($block['blockName']) {
                 case 'core/paragraph':
+                case 'zamaneh/paragraph':
                     $blockMeta = [
                         'content' => trim(self::strip_tags($block['innerHTML'])),
                     ];
