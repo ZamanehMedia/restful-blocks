@@ -23,15 +23,34 @@ class Metadata {
                 case 'core/image':
                     $blockMeta = [];
                     // If inserting the image from the Media Manager, it has an ID
-                    if (isset($block['attrs']['id']) && $img = wp_get_attachment_image_src($block['attrs']['id'], $block['attrs']['sizeSlug'])) {
-                        $blockMeta['img'] = [
-                            'src' => $img[0],
-                            'width' => $img[1],
-                            'height' => $img[2],
+                    $image_id = $block['attrs']['id'];
+                    if (isset($image_id)) {
+                        $small_image = wp_get_attachment_image_src($image_id, 'medium');
+                        $medium_image = wp_get_attachment_image_src($image_id, 'medium_large');
+                        $large_image = wp_get_attachment_image_src($image_id, 'full');
+                        $blockMeta = [
+                            'small' => [
+                                'src' => $small_image[0],
+                                'width' => $small_image[1],
+                                'height' => $small_image[2],
+                            ],
+                            'medium' => [
+                                'src' => $medium_image[0],
+                                'width' => $medium_image[1],
+                                'height' => $medium_image[2],
+                            ],
+                            'large' => [
+                              'src' => $large_image[0],
+                              'width' => $large_image[1],
+                              'height' => $large_image[2],
+                            ]
                         ];
                     }
                     elseif ($src = self::extract_image_src($block['innerHTML'])) {
                         $blockMeta['src'] = $src;
+                    }
+                    if ($image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true)) {
+                        $blockMeta['alt'] = $image_alt;
                     }
                     if ($caption = self::extract_caption($block['innerHTML'])) {
                         $blockMeta['caption'] = $caption;
@@ -41,9 +60,6 @@ class Metadata {
                         if ($link = self::extract_link($block['innerHTML'])) {
                             $blockMeta['link'] = $link;
                         }
-                    }
-                    if (isset($block['attrs']['align']) && $align = $block['attrs']['align']) {
-                        $blockMeta['align'] = $align;
                     }
                     break;
 

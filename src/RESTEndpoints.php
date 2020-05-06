@@ -68,7 +68,12 @@ class RESTEndpoints {
             $featured_image_sizes['large'] = $large_image;
 
   		    	$featured_image = $featured_image_sizes;
-            $featured_image['alt'] = \wp_get_attachment_caption($featured_image_id);
+            if ($image_alt = \get_post_meta($featured_image_id, '_wp_attachment_image_alt', true)) {
+                $featured_image['alt'] = $image_alt;
+            }
+            if ($caption = \wp_get_attachment_caption($featured_image_id)) {
+                $featured_image['caption'] = $caption;
+            }
         	  $item_metadata['featured_image'] = $featured_image;
         }
 
@@ -135,7 +140,8 @@ class RESTEndpoints {
                 $featured_image_sizes['large'] = $large_image;
 
                 $featured_image = $featured_image_sizes;
-                $featured_image['alt'] = \wp_get_attachment_caption($featured_image_id);
+                $featured_image['alt'] = \get_post_meta($featured_image_id, '_wp_attachment_image_alt', true);
+                $featured_image['caption'] = \wp_get_attachment_caption($featured_image_id);
         		    $item_metadata['featured_image'] = $featured_image;
             }
 
