@@ -66,9 +66,12 @@ class RESTEndpoints {
             $large_image['width'] = $large_image_instance[1];
             $large_image['height'] = $large_image_instance[2];
             $featured_image_sizes['large'] = $large_image;
+
+  		    	$featured_image = $featured_image_sizes;
+            $featured_image['alt'] = \wp_get_attachment_caption($featured_image_id);
+        	  $item_metadata['featured_image'] = $featured_image;
         }
 
-        $item_metadata['featured_image'] = $featured_image_sizes;
 		    $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
 
         $block_data = Data::get_block_data($post->post_content);
@@ -130,9 +133,12 @@ class RESTEndpoints {
                 $large_image['width'] = $large_image_instance[1];
                 $large_image['height'] = $large_image_instance[2];
                 $featured_image_sizes['large'] = $large_image;
+
+                $featured_image = $featured_image_sizes;
+                $featured_image['alt'] = \wp_get_attachment_caption($featured_image_id);
+        		    $item_metadata['featured_image'] = $featured_image;
             }
 
-            $item_metadata['featured_image'] = $featured_image_sizes;
             $item_metadata['categories'] = \wp_get_post_categories($item_metadata["ID"]);
             $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
 
