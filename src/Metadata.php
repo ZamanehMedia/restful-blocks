@@ -218,7 +218,7 @@ class Metadata {
 
     public static function strip_tags($content)
     {
-        return strip_tags($content, '<strong><em>');
+        return strip_tags($content, '<strong><a>');
     }
 
     public static function extract_caption($innerHTML)
