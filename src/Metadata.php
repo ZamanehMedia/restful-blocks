@@ -15,6 +15,7 @@ class Metadata {
             $blockMeta = null;
             switch ($block['blockName']) {
                 case 'core/paragraph':
+                case 'zamaneh/paragraph':
                     $blockMeta = [
                         'content' => trim(self::strip_tags($block['innerHTML'])),
                     ];
@@ -233,7 +234,7 @@ class Metadata {
 
     public static function strip_tags($content)
     {
-        return strip_tags($content, '<strong><em>');
+        return strip_tags($content, '<strong><a>');
     }
 
     public static function extract_caption($innerHTML)
