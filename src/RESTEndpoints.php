@@ -77,6 +77,7 @@ class RESTEndpoints {
         	  $item_metadata['featured_image'] = $featured_image;
         }
 
+        $item_metadata['categories'] = \get_the_category($item_metadata["ID"]);
 		    $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
 
         $block_data = Data::get_block_data($post->post_content);
@@ -145,7 +146,7 @@ class RESTEndpoints {
         		    $item_metadata['featured_image'] = $featured_image;
             }
 
-            $item_metadata['categories'] = \wp_get_post_categories($item_metadata["ID"]);
+            $item_metadata['categories'] = \get_the_category($item_metadata["ID"]);
             $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
 
             $block_data = Data::get_block_data($post->post_content);
