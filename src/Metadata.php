@@ -94,11 +94,25 @@ class Metadata {
                     $imgs = [];
                     if (isset($block['attrs']['ids'])) {
                         foreach ($block['attrs']['ids'] as $img_id) {
-                            $img = wp_get_attachment_image_src($img_id, 'full');
+                            $small_image = wp_get_attachment_image_src($img_id, 'medium');
+                            $medium_image = wp_get_attachment_image_src($img_id, 'medium_large');
+                            $large_image = wp_get_attachment_image_src($img_id, 'full');
                             $imgs[] = [
-                                'src' => $img[0],
-                                'width' => $img[1],
-                                'height' => $img[2],
+                                'small' => [
+                                    'src' => parse_url($small_image[0], PHP_URL_PATH),
+                                    'width' => $small_image[1],
+                                    'height' => $small_image[2],
+                                ],
+                                'medium' => [
+                                    'src' => parse_url($medium_image[0], PHP_URL_PATH),
+                                    'width' => $medium_image[1],
+                                    'height' => $medium_image[2],
+                                ],
+                                'large' => [
+                                  'src' => parse_url($large_image[0], PHP_URL_PATH),
+                                  'width' => $large_image[1],
+                                  'height' => $large_image[2],
+                                ]
                             ];
                         }
                     }
