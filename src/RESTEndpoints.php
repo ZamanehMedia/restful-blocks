@@ -45,7 +45,7 @@ class RESTEndpoints {
         $featured_image_id = \get_post_thumbnail_id($post);
         $featured_image_sizes = array();
 
-        if ($featured_image_id) {
+        if (isset($featured_image_id) && \wp_get_attachment_image_src($featured_image_id, 'full')) {
             $small_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium');
             $small_image = array();
 			      $small_image['src'] = \parse_url($small_image_instance[0], PHP_URL_PATH);
@@ -118,7 +118,7 @@ class RESTEndpoints {
             $featured_image_id = \get_post_thumbnail_id($post);
             $featured_image_sizes = array();
 
-            if ($featured_image_id) {
+            if (isset($featured_image_id) && \wp_get_attachment_image_src($featured_image_id, 'full')) {
                 $small_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium');
                 $small_image = array();
                 $small_image['src'] = \parse_url($small_image_instance[0], PHP_URL_PATH);
