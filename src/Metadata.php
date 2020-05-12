@@ -30,17 +30,17 @@ class Metadata {
                         $large_image = wp_get_attachment_image_src($image_id, 'full');
                         $blockMeta = [
                             'small' => [
-                                'src' => $small_image[0],
+                                'src' => \parse_url($small_image[0], PHP_URL_PATH),
                                 'width' => $small_image[1],
                                 'height' => $small_image[2],
                             ],
                             'medium' => [
-                                'src' => $medium_image[0],
+                                'src' => \parse_url($medium_image[0], PHP_URL_PATH),
                                 'width' => $medium_image[1],
                                 'height' => $medium_image[2],
                             ],
                             'large' => [
-                              'src' => $large_image[0],
+                              'src' => \parse_url($large_image[0], PHP_URL_PATH),
                               'width' => $large_image[1],
                               'height' => $large_image[2],
                             ]

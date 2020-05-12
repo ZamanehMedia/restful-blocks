@@ -48,21 +48,21 @@ class RESTEndpoints {
         if ($featured_image_id) {
             $small_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium');
             $small_image = array();
-            $small_image['src'] = $small_image_instance[0];
+			      $small_image['src'] = \parse_url($small_image_instance[0], PHP_URL_PATH);
             $small_image['width'] = $small_image_instance[1];
             $small_image['height'] = $small_image_instance[2];
             $featured_image_sizes['small'] = $small_image;
 
             $medium_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium_large');
             $medium_image = array();
-            $medium_image['src'] = $medium_image_instance[0];
+            $medium_image['src'] = \parse_url($medium_image_instance[0], PHP_URL_PATH);
             $medium_image['width'] = $medium_image_instance[1];
             $medium_image['height'] = $medium_image_instance[2];
             $featured_image_sizes['medium'] = $medium_image;
 
             $large_image_instance = \wp_get_attachment_image_src($featured_image_id, 'full');
             $large_image = array();
-            $large_image['src'] = $large_image_instance[0];
+			      $large_image['src'] = \parse_url($large_image_instance[0], PHP_URL_PATH);
             $large_image['width'] = $large_image_instance[1];
             $large_image['height'] = $large_image_instance[2];
             $featured_image_sizes['large'] = $large_image;
@@ -121,21 +121,21 @@ class RESTEndpoints {
             if ($featured_image_id) {
                 $small_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium');
                 $small_image = array();
-                $small_image['src'] = $small_image_instance[0];
+                $small_image['src'] = \parse_url($small_image_instance[0], PHP_URL_PATH);
                 $small_image['width'] = $small_image_instance[1];
                 $small_image['height'] = $small_image_instance[2];
                 $featured_image_sizes['small'] = $small_image;
 
                 $medium_image_instance = \wp_get_attachment_image_src($featured_image_id, 'medium_large');
                 $medium_image = array();
-                $medium_image['src'] = $medium_image_instance[0];
+                $medium_image['src'] = \parse_url($medium_image_instance[0], PHP_URL_PATH);
                 $medium_image['width'] = $medium_image_instance[1];
                 $medium_image['height'] = $medium_image_instance[2];
                 $featured_image_sizes['medium'] = $medium_image;
 
                 $large_image_instance = \wp_get_attachment_image_src($featured_image_id, 'full');
                 $large_image = array();
-                $large_image['src'] = $large_image_instance[0];
+                $large_image['src'] = \parse_url($large_image_instance[0], PHP_URL_PATH);
                 $large_image['width'] = $large_image_instance[1];
                 $large_image['height'] = $large_image_instance[2];
                 $featured_image_sizes['large'] = $large_image;
