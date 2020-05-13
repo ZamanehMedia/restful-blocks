@@ -17,7 +17,8 @@ class Metadata {
                 case 'core/paragraph':
                     $blockMeta = [
                         'content' => trim(self::strip_tags($block['innerHTML'])),
-                        'dir' => $block['attrs']['className'] == 'is-style-ltr' ? 'ltr' : 'rtl'
+                        'dir' => $block['attrs']['direction'],
+                        'lang' => $block['attrs']['language']
                     ];
                     break;
 
