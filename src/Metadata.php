@@ -126,8 +126,10 @@ class Metadata {
                 case 'core/list':
                     $matches = [];
                     preg_match_all('/<li>(.*?)<\/li>/', $block['innerHTML'], $matches);
+                    preg_match('/<ol>+/', $block['innerHTML'], $isOrdered);
                     if (count($matches) >= 2 && $items = $matches[1]) {
                         $blockMeta = [
+                            'isOrdered' => boolval($isOrdered),
                             'items' => array_map([self::class, 'strip_tags'], $items),
                         ];
                     }
