@@ -114,7 +114,9 @@ class Metadata {
                                   'src' => parse_url($large_image[0], PHP_URL_PATH),
                                   'width' => $large_image[1],
                                   'height' => $large_image[2],
-                                ]
+                                ],
+                                'alt' => get_post_meta($img_id, '_wp_attachment_image_alt', true),
+                                'caption' => wp_get_attachment_caption($img_id)
                             ];
                         }
                     }
