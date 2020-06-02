@@ -18,7 +18,8 @@ class Metadata {
                     $blockMeta = [
                         'content' => trim(self::strip_tags($block['innerHTML'])),
                         'dir' => $block['attrs']['direction'],
-                        'lang' => $block['attrs']['language']
+                        'lang' => $block['attrs']['language'],
+                        'className' => $block['attrs']['className']
                     ];
                     break;
 
@@ -89,6 +90,7 @@ class Metadata {
                     $blockMeta = [
                         'size' => $sizes[$matches[1]],
                         'heading' => $matches[2],
+                        'className' => $block['attrs']['className']
                     ];
                     break;
 
