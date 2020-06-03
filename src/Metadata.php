@@ -75,6 +75,15 @@ class Metadata {
                     }
                     break;
 
+                case 'core-embed/twitter':
+                    $blockMeta = [
+                        'url' => $block['attrs']['url'],
+                    ];
+                    if ($caption = self::extract_caption($block['innerHTML'])) {
+                        $blockMeta['caption'] = $caption;
+                    }
+                    break;
+
                 case 'core/heading':
                     $matches = [];
                     preg_match('/<h([1-6]).*?>(.*?)<\/h([1-6])>/', $block['innerHTML'], $matches);
