@@ -67,8 +67,14 @@ class Metadata {
                     break;
 
                 case 'core-embed/youtube':
+                    $url = $block['attrs']['url'];
+
+                    if (strpos($url, 'youtube-nocookie') === false) {
+                      $url = str_replace('youtube', 'youtube-nocookie', $url);
+                    }
+
                     $blockMeta = [
-                        'url' => $block['attrs']['url'],
+                        'url' => $url,
                     ];
                     if ($caption = self::extract_caption($block['innerHTML'])) {
                         $blockMeta['caption'] = $caption;
