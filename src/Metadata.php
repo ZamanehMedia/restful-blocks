@@ -17,9 +17,6 @@ class Metadata {
                 case 'core/paragraph':
                     $blockMeta = [
                         'content' => trim(self::strip_tags($block['innerHTML'])),
-                        'dir' => $block['attrs']['direction'],
-                        'lang' => $block['attrs']['language'],
-                        'className' => $block['attrs']['className']
                     ];
                     break;
 
