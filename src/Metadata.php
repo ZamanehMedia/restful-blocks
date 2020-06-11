@@ -68,7 +68,7 @@ class Metadata {
 
                 case 'core-embed/youtube':
                     $url = $block['attrs']['url'];
-=
+
                    	preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
                     $id = $matches[1];
                     parse_str(parse_url($url, PHP_URL_QUERY), $query_params);
