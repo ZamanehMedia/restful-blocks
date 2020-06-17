@@ -81,6 +81,7 @@ class RESTEndpoints {
         }
 
         $item_metadata['categories'] = \get_the_category($item_metadata["ID"]);
+        $item_metadata['tags'] = \get_the_tags($item_metadata["ID"]);
 		    $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
 
         $block_data = Data::get_block_data($post->post_content);
@@ -155,6 +156,7 @@ class RESTEndpoints {
             }
 
             $item_metadata['categories'] = \get_the_category($item_metadata["ID"]);
+            $item_metadata['tags'] = \get_the_tags($item_metadata["ID"]);
             $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
 
             $block_data = Data::get_block_data($post->post_content);
