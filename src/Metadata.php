@@ -63,45 +63,6 @@ class Metadata {
                     }
                     break;
 
-                case 'core-embed/youtube':
-                    $url = $block['attrs']['url'];
-
-                   	preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
-                    $id = $matches[1];
-                    parse_str(parse_url($url, PHP_URL_QUERY), $query_params);
-                    $start_time = $query_params['t'];
-
-                    $url = 'https://www.youtube-nocookie.com/embed/'.$id;
-                    if ($start_time) {
-                      $url = $url.'?start='.$start_time;
-                    }
-
-                    $blockMeta = [
-                        'url' => $url,
-                    ];
-                    if ($caption = self::extract_caption($block['innerHTML'])) {
-                        $blockMeta['caption'] = $caption;
-                    }
-                    break;
-
-                case 'core-embed/twitter':
-                    $blockMeta = [
-                        'url' => $block['attrs']['url'],
-                    ];
-                    if ($caption = self::extract_caption($block['innerHTML'])) {
-                        $blockMeta['caption'] = $caption;
-                    }
-                    break;
-
-                case 'core-embed/soundcloud':
-                    $blockMeta = [
-                        'url' => $block['attrs']['url'],
-                    ];
-                    if ($caption = self::extract_caption($block['innerHTML'])) {
-                        $blockMeta['caption'] = $caption;
-                    }
-                    break;
-
                 case 'core/heading':
                     $matches = [];
                     preg_match('/<h([1-6]).*?>(.*?)<\/h([1-6])>/', $block['innerHTML'], $matches);
