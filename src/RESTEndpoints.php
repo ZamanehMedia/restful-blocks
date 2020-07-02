@@ -45,6 +45,11 @@ class RESTEndpoints {
         $post_short_title = \get_field('more-mirrors-post-short-title', $post);
         $item_metadata['post_short_title'] = $post_short_title;
 
+        $post_reading_time = \get_field('more-mirrors-post-reading-time', $post);
+        if (isset($post_reading_time) && !empty($post_reading_time)) {
+          $item_metadata['post_reading_time'] = $post_reading_time;
+        }
+
         $featured_image_id = \get_post_thumbnail_id($post);
         $featured_image_sizes = array();
 
