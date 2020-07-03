@@ -42,13 +42,11 @@ class RESTEndpoints {
             }
         }
 
-        $post_short_title = \get_field('more-mirrors-post-short-title', $post);
+        $post_short_title = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
         $item_metadata['post_short_title'] = $post_short_title;
 
-        $post_reading_time = \get_field('more-mirrors-post-reading-time', $post);
-        if (isset($post_reading_time) && !empty($post_reading_time)) {
-          $item_metadata['post_reading_time'] = $post_reading_time;
-        }
+        $post_reading_time = (integer) \get_post_meta($post->ID, 'more-mirrors-post-reading-time', true);
+        $item_metadata['post_reading_time'] = $post_reading_time;
 
         $featured_image_id = \get_post_thumbnail_id($post);
         $featured_image_sizes = array();
@@ -124,15 +122,11 @@ class RESTEndpoints {
                 }
             }
 
-            $post_short_title = \get_field('more-mirrors-post-short-title', $post);
-            if (isset($post_short_title) && !empty($post_short_title)) {
-              $item_metadata['post_short_title'] = $post_short_title;
-            }
+            $post_short_title = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
+            $item_metadata['post_short_title'] = $post_short_title;
 
-            $post_reading_time = \get_field('more-mirrors-post-reading-time', $post);
-            if (isset($post_reading_time) && !empty($post_reading_time)) {
-              $item_metadata['post_reading_time'] = $post_reading_time;
-            }
+            $post_reading_time = (integer) \get_post_meta($post->ID, 'more-mirrors-post-reading-time', true);
+            $item_metadata['post_reading_time'] = $post_reading_time;
 
             $featured_image_id = \get_post_thumbnail_id($post);
             $featured_image_sizes = array();
