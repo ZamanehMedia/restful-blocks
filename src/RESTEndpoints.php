@@ -85,7 +85,7 @@ class RESTEndpoints {
         	  $item_metadata['featured_image'] = $featured_image;
         }
 
-        $item_metadata['categories'] = \get_the_category($item_metadata["ID"]);
+        $item_metadata['post_categories'] = \get_the_category($item_metadata["ID"]);
         $item_metadata['tags'] = \get_the_tags($item_metadata["ID"]);
 		    $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
 
@@ -165,7 +165,7 @@ class RESTEndpoints {
         		    $item_metadata['featured_image'] = $featured_image;
             }
 
-            $item_metadata['categories'] = \get_the_category($item_metadata["ID"]);
+            $item_metadata['post_categories'] = \get_the_category($item_metadata["ID"]);
             $item_metadata['tags'] = \get_the_tags($item_metadata["ID"]);
             $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
 
