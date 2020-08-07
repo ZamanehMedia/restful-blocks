@@ -91,6 +91,16 @@ class RESTEndpoints {
         $block_metadata = Metadata::get_block_metadata($block_data);
         $item_metadata['blocks'] = $block_metadata;
 
+        $comments = \get_comments( array( 'post_id' => $post->ID, 'status' => 'approve' ) );
+        $item_metadata['comments'] = array_map( function( $comment ) {
+            return array(
+              'author' => \get_comment_author( $comment ),
+              'author_url' => \get_comment_author_url( $comment ),
+              'comment_date_gmt' => $comment->comment_date_gmt,
+              'content' => $comment->comment_content,
+            );
+          }, $comments );
+
         $response = new \WP_REST_Response($item_metadata);
         $response->set_status(200);
         return $response;
@@ -166,6 +176,17 @@ class RESTEndpoints {
             $block_data = Data::get_block_data($post->post_content);
             $block_metadata = Metadata::get_block_metadata($block_data);
             $item_metadata['blocks'] = $block_metadata;
+
+            $comments = \get_comments( array( 'post_id' => $post->ID, 'status' => 'approve' ) );
+            $item_metadata['comments'] = array_map( function( $comment ) {
+                return array(
+                  'author' => \get_comment_author( $comment ),
+                  'author_url' => \get_comment_author_url( $comment ),
+                  'comment_date_gmt' => $comment->comment_date_gmt,
+                  'content' => $comment->comment_content,
+                );
+              }, $comments );
+
             $result[] = $item_metadata;
         }
         $response = new \WP_REST_Response($result);
