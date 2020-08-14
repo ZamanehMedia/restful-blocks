@@ -48,6 +48,8 @@ class RESTEndpoints {
         $post_reading_time = (integer) \get_post_meta($post->ID, 'more-mirrors-post-reading-time', true);
         $item_metadata['post_reading_time'] = $post_reading_time;
 
+        $item_metadata['post_pen_name'] = \get_field( 'author_name', $post->ID );
+
         $featured_image_id = \get_post_thumbnail_id($post);
         $featured_image_sizes = array();
 
@@ -137,6 +139,8 @@ class RESTEndpoints {
 
             $post_reading_time = (integer) \get_post_meta($post->ID, 'more-mirrors-post-reading-time', true);
             $item_metadata['post_reading_time'] = $post_reading_time;
+
+            $item_metadata['post_pen_name'] = \get_field( 'author_name', $post->ID );
 
             $featured_image_id = \get_post_thumbnail_id($post);
             $featured_image_sizes = array();
