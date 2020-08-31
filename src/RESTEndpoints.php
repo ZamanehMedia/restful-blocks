@@ -42,13 +42,31 @@ class RESTEndpoints {
             }
         }
 
-        $post_short_title = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
-        $item_metadata['post_short_title'] = $post_short_title;
+        $post_type = \get_post_type( $post );
+        if ( 'post' == $post_type ) {
 
-        $post_reading_time = (integer) \get_post_meta($post->ID, 'more-mirrors-post-reading-time', true);
-        $item_metadata['post_reading_time'] = $post_reading_time;
+          $item_metadata['post_short_title'] = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
+          // $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
+          $item_metadata['post_pen_name'] = \get_field( 'author_name', $post->ID );
+          $item_metadata['post_reading_time'] = (integer) \get_post_meta($post->ID, 'more-mirrors-post-reading-time', true);
+          $item_metadata['post_categories'] = \get_the_category($item_metadata["ID"]);
+          $item_metadata['tags'] = \get_the_tags($item_metadata["ID"]);
 
-        $item_metadata['post_pen_name'] = \get_field( 'author_name', $post->ID );
+          $comments = \get_comments( array( 'post_id' => $post->ID, 'status' => 'approve' ) );
+          $item_metadata['comments'] = array_map( function( $comment ) {
+              return array(
+                'author' => \get_comment_author( $comment ),
+                'author_url' => \get_comment_author_url( $comment ),
+                'comment_date_gmt' => $comment->comment_date_gmt,
+                'content' => $comment->comment_content,
+              );
+            }, $comments );
+
+        } elseif ( 'page' == $post_type ) {
+
+          $item_metadata['post_banner'] = \get_field( 'more-mirrors-theme-banner', $post->ID );
+          $item_metadata['post_theme'] = \get_field( 'more-mirrors-theme-colorway', $post->ID );
+        }
 
         $featured_image_id = \get_post_thumbnail_id($post);
         $featured_image_sizes = array();
@@ -85,23 +103,9 @@ class RESTEndpoints {
         	  $item_metadata['featured_image'] = $featured_image;
         }
 
-        $item_metadata['post_categories'] = \get_the_category($item_metadata["ID"]);
-        $item_metadata['tags'] = \get_the_tags($item_metadata["ID"]);
-		    $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
-
         $block_data = Data::get_block_data($post->post_content);
         $block_metadata = Metadata::get_block_metadata($block_data);
         $item_metadata['blocks'] = $block_metadata;
-
-        $comments = \get_comments( array( 'post_id' => $post->ID, 'status' => 'approve' ) );
-        $item_metadata['comments'] = array_map( function( $comment ) {
-            return array(
-              'author' => \get_comment_author( $comment ),
-              'author_url' => \get_comment_author_url( $comment ),
-              'comment_date_gmt' => $comment->comment_date_gmt,
-              'content' => $comment->comment_content,
-            );
-          }, $comments );
 
         $response = new \WP_REST_Response($item_metadata);
         $response->set_status(200);
@@ -134,13 +138,31 @@ class RESTEndpoints {
                 }
             }
 
-            $post_short_title = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
-            $item_metadata['post_short_title'] = $post_short_title;
+            $post_type = \get_post_type( $post );
+            if ( 'post' == $post_type ) {
 
-            $post_reading_time = (integer) \get_post_meta($post->ID, 'more-mirrors-post-reading-time', true);
-            $item_metadata['post_reading_time'] = $post_reading_time;
+              $item_metadata['post_short_title'] = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
+              // $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
+              $item_metadata['post_pen_name'] = \get_field( 'author_name', $post->ID );
+              $item_metadata['post_reading_time'] = (integer) \get_post_meta($post->ID, 'more-mirrors-post-reading-time', true);
+              $item_metadata['post_categories'] = \get_the_category($item_metadata["ID"]);
+              $item_metadata['tags'] = \get_the_tags($item_metadata["ID"]);
 
-            $item_metadata['post_pen_name'] = \get_field( 'author_name', $post->ID );
+              $comments = \get_comments( array( 'post_id' => $post->ID, 'status' => 'approve' ) );
+              $item_metadata['comments'] = array_map( function( $comment ) {
+                  return array(
+                    'author' => \get_comment_author( $comment ),
+                    'author_url' => \get_comment_author_url( $comment ),
+                    'comment_date_gmt' => $comment->comment_date_gmt,
+                    'content' => $comment->comment_content,
+                  );
+                }, $comments );
+
+            } elseif ( 'page' == $post_type ) {
+
+              $item_metadata['post_banner'] = \get_field( 'more-mirrors-theme-banner', $post->ID );
+              $item_metadata['post_theme'] = \get_field( 'more-mirrors-theme-colorway', $post->ID );
+            }
 
             $featured_image_id = \get_post_thumbnail_id($post);
             $featured_image_sizes = array();
@@ -173,23 +195,9 @@ class RESTEndpoints {
         		    $item_metadata['featured_image'] = $featured_image;
             }
 
-            $item_metadata['post_categories'] = \get_the_category($item_metadata["ID"]);
-            $item_metadata['tags'] = \get_the_tags($item_metadata["ID"]);
-            $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
-
             $block_data = Data::get_block_data($post->post_content);
             $block_metadata = Metadata::get_block_metadata($block_data);
             $item_metadata['blocks'] = $block_metadata;
-
-            $comments = \get_comments( array( 'post_id' => $post->ID, 'status' => 'approve' ) );
-            $item_metadata['comments'] = array_map( function( $comment ) {
-                return array(
-                  'author' => \get_comment_author( $comment ),
-                  'author_url' => \get_comment_author_url( $comment ),
-                  'comment_date_gmt' => $comment->comment_date_gmt,
-                  'content' => $comment->comment_content,
-                );
-              }, $comments );
 
             $result[] = $item_metadata;
         }
