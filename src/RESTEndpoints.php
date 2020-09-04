@@ -45,6 +45,21 @@ class RESTEndpoints {
         $post_type = \get_post_type( $post );
         if ( 'post' == $post_type ) {
 
+          $post_format = \get_post_format( $post );
+          $item_metadata['format'] = $post_format;
+
+          $item_metadata['post_links'] = NULL;
+          if ( 'link' == $post_format ) {
+            $item_metadata['post_links'] = array();
+            foreach ( \get_field( 'more-mirrors-links', $post->ID ) as $link ) {
+              $item_metadata['post_links'][] = array(
+                'description' => $link['more-mirrors-link-description'],
+                'url'         => \parse_url( $link['more-mirrors-link-attachment'], PHP_URL_PATH ),
+                'disposition' => $link['more-mirrors-link-disposition']
+              );
+            }
+          }
+
           $item_metadata['post_short_title'] = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
           // $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
           $item_metadata['post_pen_name'] = \get_field( 'author_name', $post->ID );
@@ -140,6 +155,21 @@ class RESTEndpoints {
 
             $post_type = \get_post_type( $post );
             if ( 'post' == $post_type ) {
+
+              $post_format = \get_post_format( $post );
+              $item_metadata['format'] = $post_format;
+
+              $item_metadata['post_links'] = NULL;
+              if ( 'link' == $post_format ) {
+                $item_metadata['post_links'] = array();
+                foreach ( \get_field( 'more-mirrors-links', $post->ID ) as $link ) {
+                  $item_metadata['post_links'][] = array(
+                    'description' => $link['more-mirrors-link-description'],
+                    'url'         => \parse_url( $link['more-mirrors-link-attachment'], PHP_URL_PATH ),
+                    'disposition' => $link['more-mirrors-link-disposition']
+                  );
+                }
+              }
 
               $item_metadata['post_short_title'] = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
               // $item_metadata['post_author'] = \get_the_author_meta('display_name', $post->post_author);
