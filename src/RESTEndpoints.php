@@ -58,6 +58,11 @@ class RESTEndpoints {
                 'disposition' => $link['more-mirrors-link-disposition']
               );
             }
+          } elseif ( 'video' == $post_format ) {
+            $item_metadata['featured_video'] = array (
+              'url'     => get_field( 'more-mirrors-video-url', $post->ID ),
+              'caption' => get_field( 'more-mirrors-video-caption', $post->ID )
+            );
           }
 
           $item_metadata['post_short_title'] = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
@@ -169,6 +174,11 @@ class RESTEndpoints {
                     'disposition' => $link['more-mirrors-link-disposition']
                   );
                 }
+              } elseif ( 'video' == $post_format ) {
+                $item_metadata['featured_video'] = array (
+                  'url'     => get_field( 'more-mirrors-video-url', $post->ID ),
+                  'caption' => get_field( 'more-mirrors-video-caption', $post->ID )
+                );
               }
 
               $item_metadata['post_short_title'] = \get_post_meta($post->ID, 'more-mirrors-post-short-title', true);
