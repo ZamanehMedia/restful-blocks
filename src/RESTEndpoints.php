@@ -45,10 +45,9 @@ class RESTEndpoints {
         $post_type = \get_post_type( $post );
         if ( 'post' == $post_type ) {
 
-          $post_format = \get_post_format( $post );
+          $post_format = \get_post_format( $post ) ? : 'standard';
           $item_metadata['format'] = $post_format;
 
-          $item_metadata['post_links'] = NULL;
           if ( 'link' == $post_format ) {
             $item_metadata['post_links'] = array();
             foreach ( \get_field( 'more-mirrors-links', $post->ID ) as $link ) {
@@ -158,13 +157,12 @@ class RESTEndpoints {
                 }
             }
 
-            $post_type = \get_post_type( $post );
+            $post_type = \get_post_type( $post ) ? : 'standard';
             if ( 'post' == $post_type ) {
 
               $post_format = \get_post_format( $post );
               $item_metadata['format'] = $post_format;
 
-              $item_metadata['post_links'] = NULL;
               if ( 'link' == $post_format ) {
                 $item_metadata['post_links'] = array();
                 foreach ( \get_field( 'more-mirrors-links', $post->ID ) as $link ) {
